@@ -230,6 +230,7 @@ interface AuthenticationResult {
  */
 interface OAuthTokenOptions {
   baseUrl: string;
+  redirect_uri: string;
   client_id: string;
   audience?: string;
   code_verifier: string;

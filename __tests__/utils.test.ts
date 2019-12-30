@@ -272,12 +272,33 @@ describe('utils', () => {
       await oauthToken({
         baseUrl: 'https://test.com',
         client_id: 'client_idIn',
+        redirect_uri: 'http://localhost',
         code: 'codeIn',
         code_verifier: 'code_verifierIn'
       });
       expect(mockUnfetch).toHaveBeenCalledWith('https://test.com/oauth/token', {
         body:
           '{"grant_type":"authorization_code","redirect_uri":"http://localhost","client_id":"client_idIn","code":"codeIn","code_verifier":"code_verifierIn"}',
+        headers: { 'Content-type': 'application/json' },
+        method: 'POST'
+      });
+    });
+    it('calls oauth/token with the correct non-localhost url', async () => {
+      mockUnfetch.mockReturnValue(
+        new Promise(res =>
+          res({ ok: true, json: () => new Promise(ress => ress(true)) })
+        )
+      );
+      await oauthToken({
+        baseUrl: 'https://test.com',
+        client_id: 'client_idIn',
+        redirect_uri: 'http://example.com',
+        code: 'codeIn',
+        code_verifier: 'code_verifierIn'
+      });
+      expect(mockUnfetch).toHaveBeenCalledWith('https://test.com/oauth/token', {
+        body:
+          '{"grant_type":"authorization_code","redirect_uri":"http://example.com","client_id":"client_idIn","code":"codeIn","code_verifier":"code_verifierIn"}',
         headers: { 'Content-type': 'application/json' },
         method: 'POST'
       });
@@ -299,6 +320,7 @@ describe('utils', () => {
         await oauthToken({
           baseUrl: 'https://test.com',
           client_id: 'client_idIn',
+          redirect_uri: 'http://localhost',
           code: 'codeIn',
           code_verifier: 'code_verifierIn'
         });
@@ -321,6 +343,7 @@ describe('utils', () => {
         await oauthToken({
           baseUrl: 'https://test.com',
           client_id: 'client_idIn',
+          redirect_uri: 'http://localhost',
           code: 'codeIn',
           code_verifier: 'code_verifierIn'
         });

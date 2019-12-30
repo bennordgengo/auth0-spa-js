@@ -259,6 +259,7 @@ describe('Auth0', () => {
         audience: undefined,
         baseUrl: 'https://test.auth0.com',
         client_id: TEST_CLIENT_ID,
+        redirect_uri: 'http://localhost',
         code: TEST_CODE,
         code_verifier: TEST_RANDOM_STRING
       });
@@ -271,6 +272,7 @@ describe('Auth0', () => {
         audience: 'test-audience',
         baseUrl: 'https://test.auth0.com',
         client_id: TEST_CLIENT_ID,
+        redirect_uri: 'http://localhost',
         code: TEST_CODE,
         code_verifier: TEST_RANDOM_STRING
       });
@@ -695,6 +697,7 @@ describe('Auth0', () => {
           audience: undefined,
           baseUrl: 'https://test.auth0.com',
           client_id: TEST_CLIENT_ID,
+          redirect_uri: `http://localhost/?code=${TEST_CODE}&state=${TEST_ENCODED_STATE}`,
           code: TEST_CODE,
           code_verifier: TEST_RANDOM_STRING
         });
@@ -875,6 +878,7 @@ describe('Auth0', () => {
           audience: undefined,
           baseUrl: 'https://test.auth0.com',
           client_id: TEST_CLIENT_ID,
+          redirect_uri: `http://localhost/#/callback/?code=${TEST_CODE}&state=${TEST_ENCODED_STATE}`,
           code: TEST_CODE,
           code_verifier: TEST_RANDOM_STRING
         });
@@ -1248,6 +1252,7 @@ describe('Auth0', () => {
           audience: defaultOptionsIgnoreCacheTrue.audience,
           baseUrl: 'https://test.auth0.com',
           client_id: TEST_CLIENT_ID,
+          redirect_uri: 'http://localhost',
           code: TEST_CODE,
           code_verifier: TEST_RANDOM_STRING
         });
