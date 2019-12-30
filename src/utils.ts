@@ -191,18 +191,20 @@ export const oauthToken = async ({
   baseUrl,
   redirect_uri,
   ...options
-}: OAuthTokenOptions) =>
-  await getJSON(`${baseUrl}/oauth/token`, {
+}: OAuthTokenOptions) => {
+  let url = new URL(redirect_uri);
+  return await getJSON(`${baseUrl}/oauth/token`, {
     method: 'POST',
     body: JSON.stringify({
       grant_type: 'authorization_code',
-      redirect_uri: new URL(redirect_uri).origin,
+      redirect_uri: `${url.protocol}//${url.hostname}`,
       ...options
     }),
     headers: {
       'Content-type': 'application/json'
     }
   });
+};
 
 export const getCrypto = () => {
   //ie 11.x uses msCrypto
